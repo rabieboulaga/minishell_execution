@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabie <rabie@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:25:47 by rabie             #+#    #+#             */
-/*   Updated: 2024/10/17 18:56:40 by rabie            ###   ########.fr       */
+/*   Updated: 2024/10/21 13:01:57 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ void    echo(char **cmd)
             break;
     }
     while (cmd[j])
-    {
+    {   
         printf("%s", cmd[j]);
+        printf(" ");
         j++;
     }    
     if(newline == 0)
