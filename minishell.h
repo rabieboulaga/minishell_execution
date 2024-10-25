@@ -45,6 +45,12 @@ typedef struct t_input
 	s_redir			*redirections;
 }   s_input;
 
+typedef struct t_global
+{
+	char			**env_copy;
+	struct t_input	input;
+}	s_global;
+
 s_token check_token(char c1, char c2);
 int check_beggining_of_str(char *str);
 void shunting_yard(s_input **head, s_input **tok_stack, s_input **new_stack);
@@ -80,7 +86,7 @@ int	check_syntax_help(s_token tok, s_token next);
 
 // ====================================== execution===============================
 int		ft_ncmp(const char *str1, const char *str2, int n);
-void    builtins(char **cmd);
+void    builtins(char **cmd, s_global *global);
 void    echo(char **cmd);
 int 	check_option(char *str);
 int    pwd();

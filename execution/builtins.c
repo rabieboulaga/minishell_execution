@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void    builtins(char **cmd)
+void    builtins(char **cmd, s_global *global)
 {
     if (ft_ncmp("echo", cmd[0], 4) == 0 && ft_strlen(cmd[0]) == 4)
         echo(cmd);
