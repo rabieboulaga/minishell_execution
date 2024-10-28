@@ -3,7 +3,6 @@
 
 void    ft_initialize(char **env, s_global *global)
 {
-    global = malloc(sizeof(s_global)); 
     if (!global)
         return ;; 
     int i = 0;
@@ -16,7 +15,6 @@ void    ft_initialize(char **env, s_global *global)
     while(env[i])
     {
         global->env_copy[i] = ft_strdup(env[i]);
-        printf("%s\n", global->env_copy[i]);
         i++;
     }
 }
@@ -27,9 +25,10 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
     char **tmp;
-    s_global *global = NULL;
+    s_global *global;
     s_input *input;
 
+    global = malloc(sizeof(s_global)); 
     while(1)
     {
         rl = readline("minishell --> ");
@@ -38,6 +37,7 @@ int main(int argc, char **argv, char **env)
         input = parsing(rl);
 		if(!input)
 			continue;
+        // printf("%s\n", global->env_copy[0]);
         tmp = ft_split(input->command, ' ');
         builtins(tmp, global);
 		// printf("command: %s\n", input->command);

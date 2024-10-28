@@ -91,6 +91,9 @@ void    echo(char **cmd);
 int 	check_option(char *str);
 int    pwd();
 int		cd(char **cmd);
+int     env(char **cmd, s_global *global);
+int     unset(char **cmd, s_global *global);
+
 
 
 

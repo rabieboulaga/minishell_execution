@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rabia <rabia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:30:57 by rabie             #+#    #+#             */
-/*   Updated: 2024/10/23 11:17:33 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:56:02 by rabia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+
 
 int	ft_ncmp(const char *str1, const char *str2, int n)
 {
