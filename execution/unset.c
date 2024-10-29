@@ -6,7 +6,7 @@
 /*   By: rabia <rabia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:41:39 by rabia             #+#    #+#             */
-/*   Updated: 2024/10/28 13:53:24 by rabia            ###   ########.fr       */
+/*   Updated: 2024/10/28 18:40:49 by rabia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	env_cmp(const char *str1, const char *str2)
 	}
     if (str2[i] != '=')
     { 
+        
         return (0);
     }
     return (1);
@@ -55,21 +56,21 @@ int     unset(char **cmd, s_global *global)
         {        
             if(env_cmp(cmd[i], global->env_copy[j])) 
             {
-                printf("this is good\n");
                 free(global->env_copy[j]);
-                while (global->env_copy[j])
+                global->env_copy[j] = NULL;
+                while (global->env_copy[j + 1])
                 {
-                    global->env_copy
+                    if (global->env_copy[j + 1])
+                        global->env_copy[j] = global->env_copy[j + 1];
+                    j++;
                 }
-                break;
+                global->env_copy[j] = NULL;
+                // free(global->env_copy);
             }
             j++;
         }
         j = 0;
         i++;
     }
-    
-    
-    
     return 0;    
 }

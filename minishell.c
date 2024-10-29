@@ -29,11 +29,11 @@ int main(int argc, char **argv, char **env)
     s_input *input;
 
     global = malloc(sizeof(s_global)); 
+    ft_initialize(env, global);
     while(1)
     {
         rl = readline("minishell --> ");
         add_history(rl);
-        ft_initialize(env, global);
         input = parsing(rl);
 		if(!input)
 			continue;
