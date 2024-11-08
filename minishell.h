@@ -47,6 +47,7 @@ typedef struct t_input
 
 typedef struct t_global
 {
+	char 				**export;
 	char			**env_copy;
 	struct t_input	input;
 }	s_global;
@@ -93,7 +94,7 @@ int    pwd();
 int		cd(char **cmd);
 int     env(char **cmd, s_global *global);
 int     unset(char **cmd, s_global *global);
-
+int     export(char **cmd,s_global *global);
 
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabia <rabia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:24:54 by rabie             #+#    #+#             */
-/*   Updated: 2024/10/28 16:50:17 by rabia            ###   ########.fr       */
+/*   Updated: 2024/11/05 02:21:39 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void    builtins(char **cmd, s_global *global)
         env(cmd, global);
     else if (ft_ncmp("unset", cmd[0], 5) == 0 && ft_strlen(cmd[0]) == 5)
         unset(cmd, global);
+    else if (ft_ncmp("export", cmd[0], 6) == 0 && ft_strlen(cmd[0]) == 6)
+        export(cmd, global);
     // while (global->env_copy[i])
     // {
     //     printf("%s\n", global->env_copy[i]);
