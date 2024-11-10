@@ -6,9 +6,16 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 23:27:09 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/11/09 18:51:58 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/11/10 23:12:54 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+//var=..
+
+// var
+// varsssss
+// var=
+
 
 #include "../minishell.h"
 int check_variable(char *var ,s_global *global)
@@ -22,11 +29,19 @@ int check_variable(char *var ,s_global *global)
         len++;
     while (global->env_copy[i])
     {    
-        if (ft_ncmp(global->env_copy[i], var, len + 1) == 0)
+        if (ft_ncmp(global->env_copy[i], var, len + 1) == 0)//this is the same variable (change the varible value 1-free 2-strdup)
         {
-            printf("this is the same %s like-> %s\n", var , global->env_copy[i]);
-            return 1;        
+            free(global->env_copy[i]);
+            global->env_copy[i]= ft_strdup(var);
+            return 1;
+            // printf("this is the same variable (change the varible value 1-free 2-strjoin)\n"); // return 1
         }
+        else if (ft_ncmp(global->env_copy[i], var, len) == 0 && var[len + 1] == '\0')
+            return 1; // is just var'0'
+        // else if (ft_ncmp(global->env_copy[i], var, l))
+        // { 
+            // printf("is not the same variable,, you should add them without free anything\n"); // return 1 or somthing else because is another case
+        // }        
         i++;
     }
     return 0;
@@ -98,8 +113,7 @@ int     export_listing(char **cmd, s_global *global)
     len = 0;
     if (!cmd[1])
     {
-        if (!global->export)
-            copying(global);
+        copying(global);
         while (global->export[len])
             len++;
         sort_list(global, len);
@@ -125,9 +139,10 @@ int     export(char **cmd, s_global *global)
     while (cmd[i])
     {
         check_variable(cmd[i] ,global);
-        //function number 1 for check if any variable like the first variable
-// 
-        //function number 2 for add the variable to
+            return 1;
+        
+        //if return 1->> change variable
+        // else we not change it
         i++;
     }  
     return 0;
