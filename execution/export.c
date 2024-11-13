@@ -6,18 +6,65 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 23:27:09 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/11/10 23:12:54 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/11/13 00:36:39 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//var=..
-
-// var
-// varsssss
-// var=
-
 
 #include "../minishell.h"
+
+// void    free_list(char **str)
+// {
+//     int i;
+
+//     i = 0;
+//     while (str[i])
+//     {
+//         free(str[i])
+//         i++;
+//     }
+// }
+
+void    copying_II(s_global *global, char *v)
+{
+    int i;
+    char **tmp;
+
+    i = 0;
+    while (global->env_copy[i])
+        i++;
+    tmp = malloc((i + 2) * sizeof(char *));
+    i = 0;
+    while (global->env_copy[i])
+    {
+        tmp[i] = global->env_copy[i];
+        i++;
+    }
+    tmp[i++] = ft_strdup(v);
+    tmp[i] = NULL;
+    free(global->env_copy);
+    global->env_copy = tmp;
+}
+
+int     var_parser(char *v, s_global *global)
+{
+    int i;
+    
+    i = 0;
+    while (v[i] && v[i] != '=')
+    {
+        if ((ft_isalpha(v[i]) || ft_isdigit(v[i]) || v[i] == '_' ) && ft_isdigit(v[0]) == 0)
+            i++;
+        else
+        { 
+            printf("minishell: export: `%s': not a valid identifier\n", v);
+            return 0;
+        }
+    }
+    copying_II(global, v);
+    return 1;
+}
+
 int check_variable(char *var ,s_global *global)
 {
     int i;
@@ -47,64 +94,21 @@ int check_variable(char *var ,s_global *global)
     return 0;
 }
 
-int     putstr(char *str)
-{
-    int i;
-    int flag = 0;
-    //flag usage if there is more than one = and we need just the first one
+// void    copying(s_global *global)
+// {
+//     int i;
 
-    i = 0;
-    while (str[i])
-    {
-        printf("%c", str[i]);
-        if (str[i] == '=' && flag == 0)
-            printf("\"");
-        i++;
-    }
-    printf("\"\n");
-    return 1;
-}
-
-void    sort_list(s_global *global, int len)
-{
-    int i;
-    char *tmp;
-    int j;
-
-    i = 0;
-    j = 0;
-    while (i < len - 1)
-    {
-        j = 0;
-        while (j < len - i - 1)
-        {
-            if (global->export[j][0] > global->export[j + 1][0])
-            {
-                tmp = global->export[j];
-                global->export[j] = global->export[j + 1];
-                global->export[j + 1] = tmp;
-            }
-            j++;
-        }
-        i++;
-    }
-}
-
-void    copying(s_global *global)
-{
-    int i;
-
-    i = 0;
-    while (global->env_copy[i])
-        i++;
-    global->export = malloc((i + 1) * sizeof(char *));
-    i = 0;
-    while (global->env_copy[i])
-    {
-        global->export[i] = ft_strdup(global->env_copy[i]);
-        i++;
-    }    
-}
+//     i = 0;
+//     while (global->env_copy[i])
+//         i++;
+//     global->export = malloc((i + 1) * sizeof(char *));
+//     i = 0;
+//     while (global->env_copy[i])
+//     {
+//         global->export[i] = ft_strdup(global->env_copy[i]);
+//         i++;
+//     }    
+// }
 
 int     export_listing(char **cmd, s_global *global)
 {
@@ -113,15 +117,15 @@ int     export_listing(char **cmd, s_global *global)
     len = 0;
     if (!cmd[1])
     {
-        copying(global);
-        while (global->export[len])
+        // copying(global);
+        while (global->env_copy[len])
             len++;
         sort_list(global, len);
         len = 0;
-        while (global->export[len])
+        while (global->env_copy[len])
         {
             printf("declare -x ");
-            putstr(global->export[len]);
+            putstr(global->env_copy[len]);
             len++;
         }
         return (1);
@@ -132,17 +136,20 @@ int     export_listing(char **cmd, s_global *global)
 int     export(char **cmd, s_global *global)
 {
     int i;
+    int j;
 
+    j = 0;
     i = 1;
+
     if (export_listing(cmd, global))
         return 1;
     while (cmd[i])
     {
-        check_variable(cmd[i] ,global);
-            return 1;
-        
-        //if return 1->> change variable
-        // else we not change it
+        j = 0;
+        if (check_variable(cmd[i] ,global))
+            j = 1;
+        if (j != 1 && var_parser(cmd[i], global))
+            printf("this is good\n");      
         i++;
     }  
     return 0;
