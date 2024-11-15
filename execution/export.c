@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 23:27:09 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/11/13 00:36:39 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/11/14 02:05:51 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,27 @@ void    copying_II(s_global *global, char *v)
     global->env_copy = tmp;
 }
 
+// ------>>>>>>>var+=value
 int     var_parser(char *v, s_global *global)
 {
     int i;
-    
+
     i = 0;
     while (v[i] && v[i] != '=')
     {
         if ((ft_isalpha(v[i]) || ft_isdigit(v[i]) || v[i] == '_' ) && ft_isdigit(v[0]) == 0)
             i++;
         else
-        { 
+        {
             printf("minishell: export: `%s': not a valid identifier\n", v);
             return 0;
         }
     }
+    if (v[0] == '=')
+    {
+        printf("minishell: export: `%s': not a valid identifier\n", v);
+        return 0;
+    }        
     copying_II(global, v);
     return 1;
 }
