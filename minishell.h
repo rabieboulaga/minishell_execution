@@ -50,6 +50,7 @@ typedef struct t_global
 	// char 				**export;
 	char			**env_copy;
 	struct t_input	input;
+	char *path;
 }	s_global;
 
 s_token check_token(char c1, char c2);
@@ -97,5 +98,7 @@ int     unset(char **cmd, s_global *global);
 int     export(char **cmd,s_global *global);
 int     putstr(char *str);
 void    sort_list(s_global *global, int len);
+int     cmd_execution(char **cmd, s_global *global);
+
 
 #endif
