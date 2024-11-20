@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:39:32 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/11/17 23:45:08 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/11/19 21:41:08 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int     help(char **cmd, s_global *global)
             i++;
         }
     }
-    return 0;
+    return (global->wall = 1, 0);
 }
 
 int     find_path(char **cmd, s_global *global)
@@ -72,15 +72,28 @@ int     find_path(char **cmd, s_global *global)
 
 int     cmd_execution(char **cmd, s_global *global)
 {
-    
+    pid_t pid;
+
     if (find_path(cmd, global))
     {
-        printf("all is good\n ");
+        pid =  fork();
+        if (pid < 0)
+            return 0;
+        else if(pid == 0)
+        {
+            if (execve(global->path, cmd, global->env_copy) == -1)
+                return 0;
+        }
+        else
+            waitpid(pid, &global->status, 0);
+        return 1;
     }
-    else
-        printf("wa hmaaaar\n");
+    // if (function)
         
-    
-    
+    if (global->wall != 1)
+        printf("Minishell : command not found : %s\n", cmd[0]);
+    else 
+        printf("Minishell: %s: No such file or directory\n", cmd[0]);
+    //bash: KASDF: No such file or directory
     return 0;
 }

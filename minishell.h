@@ -8,6 +8,7 @@
 # include <readline/history.h>
 #include <limits.h>
 # include "libft_torename/libft.h"
+#include <sys/wait.h>
 
 typedef enum t_token
 {
@@ -50,7 +51,9 @@ typedef struct t_global
 	// char 				**export;
 	char			**env_copy;
 	struct t_input	input;
-	char *path;
+	char 			*path;
+	int	 			status;
+	int				wall;
 }	s_global;
 
 s_token check_token(char c1, char c2);
