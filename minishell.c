@@ -37,8 +37,15 @@ int main(int argc, char **argv, char **env)
         input = parsing(rl);
 		if(!input)
 			continue;
-        // printf("%s\n", global->env_copy[0]);
         tmp = ft_split(input->command, ' ');
+        // while(input->right)
+        // {
+        //         if(input->tok==STR)
+        //         {
+        //             printf("%s\n", input->command);
+        //         } 
+        //     input = input->right;
+        // }
         builtins(tmp, global);
 		// printf("command: %s\n", input->command);
     }

@@ -10,6 +10,7 @@
 # include "libft_torename/libft.h"
 #include <sys/wait.h>
 
+
 typedef enum t_token
 {
 	IN,         // <		0
