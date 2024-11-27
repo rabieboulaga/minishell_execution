@@ -92,7 +92,7 @@ int	check_syntax_help(s_token tok, s_token next);
 
 // ====================================== execution===============================
 int		ft_ncmp(const char *str1, const char *str2, int n);
-void    builtins(char **cmd, s_global *global);
+void    builtins(char **cmd ,s_global *global);
 void    echo(char **cmd);
 int 	check_option(char *str);
 int    pwd();
@@ -103,6 +103,7 @@ int     export(char **cmd,s_global *global);
 int     putstr(char *str);
 void    sort_list(s_global *global, int len);
 int     cmd_execution(char **cmd, s_global *global);
-
+int     exe(char **cmd ,s_input *input, s_global *global);
+void    free_list(char **str);
 
 #endif
