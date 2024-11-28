@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:47:51 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/11/27 23:07:02 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:31:32 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,14 @@ int     single_pipe(s_input *input, s_global *global)
         close(pipefd[0]);
         dup2(pipefd[1], STDOUT_FILENO);
         close(pipefd[1]);
-        tmp1 = ft_split(input->left->command, ' ');
-        builtins(tmp1 ,global);
+        
+        if (input->left->tok == PIPE)
+            single_pipe(input->left, global);    
+        if (input->left->command)
+        {
+            tmp1 = ft_split(input->left->command, ' ');    
+            builtins(tmp1 ,global);
+        }
         exit(0);
     }
     pid_t right = fork();
