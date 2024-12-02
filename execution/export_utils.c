@@ -6,11 +6,25 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 23:22:48 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/11/12 17:23:57 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/12/02 11:24:54 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int     join_var(char *var, s_global *global)
+{
+    int i;
+   
+    (void)global;
+    i = 0;
+    while (var[i] && var[i] != '=')
+        i++;
+    if (var[i] == '=')
+        return 1;
+    return 0;
+}
+
 
 int     putstr(char *str)
 {
@@ -29,7 +43,9 @@ int     putstr(char *str)
         }
         i++;
     }
-    printf("\"\n");
+    if (flag == 1)
+        printf("\"");
+    printf("\n");
     return 1;
 }
 

@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:47:51 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/11/28 17:31:32 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/12/02 09:10:45 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,12 @@ int     exe(char **cmd ,s_input *input, s_global *global)
     if (input->tok == PIPE)
         single_pipe(input, global);
     else if (input->tok == STR)
-        builtins(cmd ,global);      
+        builtins(cmd ,global);
+    // else if (input->tok == IN || input->tok == OUT)
+    // {    
+    //     redirections(input, global);    
+    //     printf(">dsfsdfsdfsdfsd\n");
+    // }
     return 0;
 }
     

@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:42:59 by rabia             #+#    #+#             */
-/*   Updated: 2024/11/12 17:41:47 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/12/02 09:52:20 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int     env(char **cmd, s_global *global)
     }
     while (global->env_copy[i])
     {
-        printf("%s\n", global->env_copy[i]);
+        if (ft_strchr(global->env_copy[i], '=') != NULL)
+            printf("%s\n", global->env_copy[i]);
         i++;
     }
     return (0);

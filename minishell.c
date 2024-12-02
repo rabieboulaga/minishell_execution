@@ -67,7 +67,7 @@ int main(int argc, char **argv, char **env)
     char *rl;
 	(void)argc;
 	(void)argv;
-    char **tmp;
+    char **tmp;// free if the user command is pipes.. (++)
     
     s_global *global;
     s_input *input;
@@ -81,9 +81,8 @@ int main(int argc, char **argv, char **env)
         input = parsing(rl);
 		if(!input)
 			continue;
-        // print_tree(input);
-        // builtins(tmp, global);
-        tmp = ft_split(input->command, ' ');
+        if (input->tok == STR)
+            tmp = ft_split(input->command, ' ');
         exe(tmp , input, global);
         // if (input->tok == PIPE)    
         //     printf("pipe\n");

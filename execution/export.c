@@ -6,7 +6,7 @@
 /*   By: rboulaga <rboulaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 23:27:09 by rboulaga          #+#    #+#             */
-/*   Updated: 2024/11/14 02:05:51 by rboulaga         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:04:20 by rboulaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,18 @@ int check_variable(char *var ,s_global *global)
     {    
         if (ft_ncmp(global->env_copy[i], var, len + 1) == 0)//this is the same variable (change the varible value 1-free 2-strdup)
         {
+            // if (join_var(var, global))
+            // { 
+            //     printf("heeeeeeey\n");
+
+            //     return 1;
+            // }
             free(global->env_copy[i]);
             global->env_copy[i]= ft_strdup(var);
             return 1;
-            // printf("this is the same variable (change the varible value 1-free 2-strjoin)\n"); // return 1
         }
         else if (ft_ncmp(global->env_copy[i], var, len) == 0 && var[len + 1] == '\0')
             return 1; // is just var'0'
-        // else if (ft_ncmp(global->env_copy[i], var, l))
-        // { 
-            // printf("is not the same variable,, you should add them without free anything\n"); // return 1 or somthing else because is another case
-        // }        
         i++;
     }
     return 0;
@@ -154,8 +155,10 @@ int     export(char **cmd, s_global *global)
         j = 0;
         if (check_variable(cmd[i] ,global))
             j = 1;
-        if (j != 1 && var_parser(cmd[i], global))
-            printf("this is good\n");      
+        if (j != 1)
+        {    
+            var_parser(cmd[i], global);      
+        }
         i++;
     }  
     return 0;

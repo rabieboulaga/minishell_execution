@@ -105,5 +105,8 @@ void    sort_list(s_global *global, int len);
 int     cmd_execution(char **cmd, s_global *global);
 int     exe(char **cmd ,s_input *input, s_global *global);
 void    free_list(char **str);
+int     redirections(s_input *input, s_global *global);
+int     join_var(char *var, s_global *global);
+
 
 #endif
